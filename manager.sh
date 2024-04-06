@@ -8,7 +8,7 @@ case $action in
     ;;
 
   test)
-    bundle exec ruby specs/models/feature.model.rb
+    bundle exec ruby specs/models/feature_model_spec.rb
     ;;
 
   *)
