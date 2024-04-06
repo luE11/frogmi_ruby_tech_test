@@ -9,4 +9,5 @@ gem "mysql2"
 group :development, :test do
   gem "dotenv"
   gem "sqlite3"
+  gem "minitest"
 end

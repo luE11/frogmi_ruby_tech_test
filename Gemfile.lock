@@ -4,6 +4,7 @@ GEM
     base64 (0.2.0)
     bigdecimal (3.1.7)
     dotenv (3.1.0)
+    minitest (5.22.3)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.6)
@@ -30,6 +31,7 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
+  minitest
   mysql2
   sequel
   sinatra
