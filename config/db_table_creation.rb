@@ -2,7 +2,7 @@ puts "Creating tables"
 
 DB.create_table? :features do
   primary_key(:id)
-  String :external_id
+  String :external_id, unique: true
   Float :mag
   String :place, null: false
   Time :time

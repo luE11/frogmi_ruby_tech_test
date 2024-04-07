@@ -57,6 +57,3 @@ build-iPhoneSimulator/
 
 # sqlite files
 *.db
-
-# custom bash manager
-manager.sh
