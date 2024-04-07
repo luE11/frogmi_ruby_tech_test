@@ -1,7 +1,8 @@
 puts "Creating tables"
 
 DB.create_table? :features do
-  String :id, primary_key: true
+  primary_key(:id)
+  String :external_id
   Float :mag
   String :place, null: false
   Time :time
@@ -19,5 +20,5 @@ end
 DB.create_table? :comments do
   primary_key :id
   String :comment, null: false
-  foreign_key :feature_id, :features, key: :id, type: String
+  foreign_key :feature_id, :features
 end

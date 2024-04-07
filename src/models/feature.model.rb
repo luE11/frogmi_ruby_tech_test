@@ -2,7 +2,6 @@ module Models
   class Feature < Sequel::Model
     def validate
       super
-      errors.add(:id, "can't be empty") if id.nil?
       errors.add(:title, "can't be empty") if title.nil? || title.empty?
       errors.add(:url, "can't be empty") if url.nil? || url.empty?
       errors.add(:place, "can't be empty") if place.nil? || place.empty?
