@@ -2,9 +2,13 @@ require_relative "../models/feature.model"
 require_relative "../../helpers/http_client_helper"
 
 module Services
+  ##
+  # Service class including Feature model operations
   class FeatureService
     include HttpClientHelper
 
+    ##
+    # Fetches data from an external API earthquake endpoint and stores features in the database
     def fetch_and_save_features(url)
       data = do_get(url)
       if !data.nil?
@@ -15,6 +19,9 @@ module Services
       end
     end
 
+    ##
+    # Iterates hash array, selecting only the required attributes.
+    # Remove invalid entries and returns an array of hashes with feature attributes
     def format_fetched_features(data)
       validation_model = Models::Feature.new()
       feature_set = data.collect do |feature|
@@ -25,6 +32,8 @@ module Services
       return feature_set.compact
     end
 
+    ##
+    # Selects and return only Feature attributes from parameter hash
     def format_feature_from_hash(hash)
       props = hash['properties']
       geometry = hash['geometry']
@@ -36,11 +45,15 @@ module Services
       })
     end
 
+    ##
+    # Validates hash values by using a model instance validation
     def validate_hash(hash, model)
       model.set_fields(hash, hash.keys)
       return model.valid?
     end
 
+    ##
+    # Inserts in a database multiple rows of Feature from a Hash array. Ignores duplicates
     def store_multiple_features_from_hash(features)
       puts "Attempting to store #{features.length} features"
       DB[:features].insert_conflict.multi_insert(features)
