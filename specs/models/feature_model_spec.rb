@@ -15,7 +15,7 @@ class FeatureModelSpec < Minitest::Test
   def test_feature_validation_success
     feature = Feature.new(
       external_id: "123a",
-      mag: 5.2,
+      magnitude: 5.2,
       place: "Atlantis",
       time: 1712416582640,
       url: "http://localhost/earthquake",
@@ -35,7 +35,7 @@ class FeatureModelSpec < Minitest::Test
   def test_feature_validation_wrong_attributes
     feature = Feature.new(
       external_id: "123a",
-      mag: 5.2,
+      magnitude: 5.2,
       time: 1712416582640,
       tsunami: 0
     )
@@ -56,7 +56,7 @@ class FeatureModelSpec < Minitest::Test
   def test_feature_validation_attributes_out_of_range
     feature = Feature.new(
       external_id: "123a",
-      mag: 11.8,
+      magnitude: 11.8,
       place: "Atlantis",
       time: 1712416582640,
       url: "http://localhost/earthquake",
@@ -69,7 +69,7 @@ class FeatureModelSpec < Minitest::Test
 
     assert !feature.valid?
     assert feature.errors.length==3
-    assert feature.errors.on(:mag).length==1
+    assert feature.errors.on(:magnitude).length==1
     assert feature.errors.on(:latitude).length==1
     assert feature.errors.on(:longitude).length==1
   end

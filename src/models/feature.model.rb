@@ -9,7 +9,7 @@ module Models
       errors.add(:magType, "can't be empty") if magType.nil? || magType.empty?
       errors.add(:latitude, "can't be empty") if latitude.nil?
       errors.add(:longitude, "can't be empty") if longitude.nil?
-      errors.add(:mag, "must be between -1.0 and 10.0") if mag && (mag<-1 || mag>10)
+      errors.add(:magnitude, "must be between -1.0 and 10.0") if magnitude && (magnitude<-1 || magnitude>10)
       errors.add(:latitude, "must be between -90.0 and 90.0") if latitude && (latitude<-90 || latitude>90)
       errors.add(:longitude, "must be between -180.0 and 180.0") if longitude && (longitude<-180 || longitude>180)
     end
