@@ -33,7 +33,9 @@ module Services
 
     ##
     # Gets a set of feature serializers matching query filter and format output to match required format
-    def get_serialized_features(mag_type:, page:, per_page:)
+    def get_serialized_features(mag_type: nil, page: nil, per_page: nil)
+      page ||=1
+      per_page ||=10
       features = get_features(mag_type: mag_type, page: page, per_page: per_page)
       return SerializerSet.new(
         object_set: features_to_serializers(features),
@@ -70,7 +72,9 @@ module Services
     ##
     # Gets filtered valid mag_type or raise error if mag_type is not a String or Array of Strings with valid values.
     # Then executes and return database query result
-    def get_features(mag_type: nil, page: 1, per_page: 10)
+    def get_features(mag_type: nil, page: nil, per_page: nil)
+      page ||=1
+      per_page ||=10
       validated_magtype = validate_magtype(mag_type)
       if(!validated_magtype.nil? && validated_magtype.empty?)
         raise InvalidMagTypeValueError.new(
