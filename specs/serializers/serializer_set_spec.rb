@@ -6,11 +6,12 @@ require_relative '../../src/serializers/serializer_set'
 include Models
 
 ##
-# Set of Feature Serializer class (which inherits from BaseSerializer class) tests
+# SerializerSet class tests
 #
 class SerializerSetSpec < Minitest::Test
   ##
-  # Serializes a Feature model object, then compares it with an expected format
+  # Executes the SerializerSet "format" method with an array of FeatureSerializer instances as parameter.
+  # Then checks if the output matches the required format
   def test_set_serialization
 
     expected_format =
