@@ -1,11 +1,15 @@
 require_relative "../models/feature.model"
 require_relative "../../helpers/http_client_helper"
+require_relative "../errors/invalid_magtype_value_error"
+include CustomErrors
 
 module Services
   ##
-  # Service class including Feature model operations
+  # Service class including Feature model operations. This class applies singleton pattern
   class FeatureService
     include HttpClientHelper
+
+    VALID_MAGTYPE_VALUES = ["md", "ml", "ms", "mw", "me", "mi", "mb", "mlg"]
 
     @instance = nil
 
@@ -16,6 +20,50 @@ module Services
         @instance = new
       end
       @instance
+    end
+
+    def get_serialized_features(mag_type:, page:, per_page:)
+      features = get_features(mag_type, page, per_page)
+
+    end
+
+    def get_features(mag_type: nil, page: 1, per_page: 10)
+      validated_magtype = validate_magtype(mag_type)
+      if(!validated_magtype.nil? && validated_magtype.empty?)
+        raise InvalidMagTypeValueError.new(
+          msg="Invalid mag_type value(s). Valid values are: #{VALID_MAGTYPE_VALUES.join(', ')}"
+        )
+      end
+      records = select_features(mag_type: validated_magtype, page: page, per_page: per_page)
+      return records
+    end
+
+    def validate_magtype(mag_type)
+      if mag_type.nil? || (mag_type.instance_of?(String) && mag_type.empty?)
+        return nil
+      end
+      if !mag_type.instance_of?(String) && !mag_type.instance_of?(Array)
+        raise InvalidMagTypeValueError.new(
+          msg="Invalid mag_type value. Must enter text or text array"
+        )
+      end
+      values = mag_type
+      if mag_type.instance_of?(String) && !mag_type.empty?
+        values = [mag_type]
+      end
+      valid_values = values.map do |val|
+        val if VALID_MAGTYPE_VALUES.include?(val)
+      end
+      return valid_values.compact
+    end
+
+    def select_features(mag_type:, page:, per_page:)
+      page_value = (page-1)*per_page
+      if mag_type.nil?
+        return DB[:features].limit(per_page, page_value).all
+      else
+        return DB[:features].where("mag_type": mag_type).limit(per_page, page_value).all
+      end
     end
 
     ##

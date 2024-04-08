@@ -86,7 +86,6 @@ class SerializerSetSpec < Minitest::Test
     }
     features = get_serializer_features_array
     ser = SerializerSet.new(object_set: features, current_page: 1, total: 10, per_page: 3).format_set
-    puts ser
     assert ser==expected_format
   end
 

@@ -11,4 +11,5 @@ group :development, :test do
   gem "dotenv"
   gem "sqlite3"
   gem "minitest"
+  gem "minitest-hooks"
 end
