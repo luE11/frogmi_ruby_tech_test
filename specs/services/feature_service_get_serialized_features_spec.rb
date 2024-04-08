@@ -229,7 +229,7 @@ class FeatureServiceGetSerializedFeaturesSpec < Minitest::Test
       ],
       "pagination"=>{
         "current_page"=>1,
-        "total"=>10,
+        "total"=>3,
         "per_page"=>5
       }
     }

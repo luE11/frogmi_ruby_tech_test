@@ -6,6 +6,7 @@ gem "sinatra"
 gem "sequel"
 gem "mysql2"
 gem "rake"
+gem "rackup"
 
 group :development, :test do
   gem "dotenv"
