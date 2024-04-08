@@ -4,6 +4,7 @@ require_relative "../errors/invalid_magtype_value_error"
 require_relative "../serializers/feature.serializer"
 require_relative "../serializers/serializer_set"
 include CustomErrors
+include Models
 
 module Services
   ##
@@ -22,6 +23,12 @@ module Services
         @instance = new
       end
       @instance
+    end
+
+    ##
+    # Checks if feature exists by given id
+    def exists_by_id(id)
+      return Feature[id].exists?
     end
 
     ##
@@ -113,7 +120,7 @@ module Services
     # Iterates hash array, selecting only the required attributes.
     # Remove invalid entries and returns an array of hashes with feature attributes
     def format_fetched_features(data)
-      validation_model = Models::Feature.new()
+      validation_model = Feature.new()
       feature_set = data.collect do |feature|
         formatted_hash = format_feature_from_hash(feature)
         formatted_hash if validate_hash(formatted_hash, validation_model)
