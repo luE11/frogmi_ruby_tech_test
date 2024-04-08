@@ -1,10 +1,13 @@
 ##
 # Base serializer class for Sequel models. Models should use :json_serializer plugin to use this class
 class BaseSerializer
-  attr_accessor :model, :links
-  def initialize(model:, links:)
+  attr_accessor :model
+  def initialize(model)
     @model = model
-    @links = links
+  end
+
+  def links
+    {}
   end
 
   ##
@@ -15,7 +18,7 @@ class BaseSerializer
 
     ser = {
       "id" => hash["id"],
-      "type" => model.class.name.split('::').last.downcase,
+      "type" => @model.class.name.split('::').last.downcase,
       "attributes" => hash.except("id"),
       "links" => links
     }

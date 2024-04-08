@@ -8,6 +8,6 @@ namespace :features do
   desc "Fetches from external Earthquake API and stores feature records on database"
   task :import do
     url = ENV['EARTHQUAKE_API_ENDPOINT']
-    Services::FeatureService.new().fetch_and_save_features(url)
+    Services::FeatureService.instance.fetch_and_save_features(url)
   end
 end

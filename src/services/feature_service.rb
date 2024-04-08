@@ -7,6 +7,17 @@ module Services
   class FeatureService
     include HttpClientHelper
 
+    @instance = nil
+
+    private_class_method :new
+
+    def self.instance
+      if @instance.nil?
+        @instance = new
+      end
+      @instance
+    end
+
     ##
     # Fetches data from an external API earthquake endpoint and stores features in the database
     def fetch_and_save_features(url)
