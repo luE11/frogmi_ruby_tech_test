@@ -24,6 +24,8 @@ module Services
       @instance
     end
 
+    ##
+    # Gets a set of feature serializers matching query filter and format output to match required format
     def get_serialized_features(mag_type:, page:, per_page:)
       features = get_features(mag_type: mag_type, page: page, per_page: per_page)
       return SerializerSet.new(
@@ -34,16 +36,23 @@ module Services
       ).format_set
     end
 
+    ##
+    # Returns total feature records existing on database
     def get_total_features
       return DB[:features].count
     end
 
+    ##
+    # Maps feature hashes to FeatureSerializer and returns it
     def features_to_serializers(features)
       return features.map do |feature|
         FeatureSerializer.new(feature)
       end
     end
 
+    ##
+    # Gets filtered valid mag_type or raise error if mag_type is not a String or Array of Strings with valid values.
+    # Then executes and return database query result
     def get_features(mag_type: nil, page: 1, per_page: 10)
       validated_magtype = validate_magtype(mag_type)
       if(!validated_magtype.nil? && validated_magtype.empty?)
@@ -55,6 +64,8 @@ module Services
       return records
     end
 
+    ##
+    # Checks if mag_type has a valid value. If mag_type is an array, filters only valid values and return values as an string array
     def validate_magtype(mag_type)
       if mag_type.nil? || (mag_type.instance_of?(String) && mag_type.empty?)
         return nil
@@ -74,6 +85,9 @@ module Services
       return valid_values.compact
     end
 
+    ##
+    # Executes a database select on features table, filtering by mag_type.
+    # Returns a dataset with specified page and items per_page
     def select_features(mag_type:, page:, per_page:)
       page_value = (page-1)*per_page
       if mag_type.nil?

@@ -7,8 +7,7 @@ include Models
 include CustomErrors
 
 ##
-# SerializerSet class tests
-#
+# FeatureService class with "get_serialized_features" method tests
 class FeatureServiceGetSerializedFeaturesSpec < Minitest::Test
   include Minitest::Hooks
 
@@ -26,7 +25,7 @@ class FeatureServiceGetSerializedFeaturesSpec < Minitest::Test
   end
 
   ##
-  # Executes the SerializerSet "format" method with an array of FeatureSerializer instances as parameter.
+  # Executes the FeatureService "get_serialized_features" method with query filter as parameters.
   # Then checks if the output matches the required format
   def test_get_serialized_features
     expected_result = get_expected_result

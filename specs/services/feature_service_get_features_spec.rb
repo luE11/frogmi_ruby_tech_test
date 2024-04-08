@@ -8,8 +8,7 @@ include Models
 include CustomErrors
 
 ##
-# SerializerSet class tests
-#
+# FeatureService class with "get_features" method tests
 class FeatureServiceGetFeaturesSpec < Minitest::Test
   include Minitest::Hooks
 
@@ -25,9 +24,6 @@ class FeatureServiceGetFeaturesSpec < Minitest::Test
     DB[:features].delete
   end
 
-  ##
-  # Executes the SerializerSet "format" method with an array of FeatureSerializer instances as parameter.
-  # Then checks if the output matches the required format
   def test_get_features_string_valid_magtype
     mag_type = "md"
     page = 1
