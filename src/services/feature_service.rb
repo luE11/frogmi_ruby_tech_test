@@ -1,6 +1,8 @@
 require_relative "../models/feature.model"
 require_relative "../../helpers/http_client_helper"
 require_relative "../errors/invalid_magtype_value_error"
+require_relative "../serializers/feature.serializer"
+require_relative "../serializers/serializer_set"
 include CustomErrors
 
 module Services
@@ -24,7 +26,22 @@ module Services
 
     def get_serialized_features(mag_type:, page:, per_page:)
       features = get_features(mag_type, page, per_page)
+      return SerializerSet.new(
+        object_set: features_to_serializers(features),
+        current_page: page,
+        total: get_total_features,
+        per_page: per_page
+      ).format_set
+    end
 
+    def get_total_features
+      return DB[:features].count
+    end
+
+    def features_to_serializers(features)
+      return features.map do |feature|
+        FeatureSerializer.new(feature)
+      end
     end
 
     def get_features(mag_type: nil, page: 1, per_page: 10)
