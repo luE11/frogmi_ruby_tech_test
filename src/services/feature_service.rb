@@ -38,15 +38,25 @@ module Services
       return SerializerSet.new(
         object_set: features_to_serializers(features),
         current_page: page,
-        total: get_total_features,
+        total: get_total_features(mag_type),
         per_page: per_page
       ).format_set
     end
 
     ##
     # Returns total feature records existing on database
-    def get_total_features
-      return DB[:features].count
+    def get_total_features(mag_type)
+      validated_magtype = validate_magtype(mag_type)
+      if(!validated_magtype.nil? && validated_magtype.empty?)
+        raise InvalidMagTypeValueError.new(
+          msg="Invalid mag_type value(s). Valid values are: #{VALID_MAGTYPE_VALUES.join(', ')}"
+        )
+      end
+      if validated_magtype.nil?
+        return DB[:features].count
+      else
+        return DB[:features].where("mag_type": mag_type).count
+      end
     end
 
     ##
