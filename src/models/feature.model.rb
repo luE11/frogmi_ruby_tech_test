@@ -1,5 +1,6 @@
 module Models
   class Feature < Sequel::Model
+    plugin :json_serializer
     def validate
       super
       errors.add(:title, "can't be empty") if title.nil? || title.empty?

@@ -32,7 +32,7 @@ Se espera que se desarrollen dos endpoints para exponer la data y modificar data
     {
       "id": Integer,
       "type": "feature",
-        "attributes": {
+      "attributes": {
         "external_id": String,
         "magnitude": Decimal,
         "place": String,
@@ -41,13 +41,13 @@ Se espera que se desarrollen dos endpoints para exponer la data y modificar data
         "mag_type": String,
         "title": String,
         "coordinates": {
-        "longitude": Decimal,
-        "latitude": Decimal
+          "longitude": Decimal,
+          "latitude": Decimal
+          }
+      },
+      "links": {
+        "external_url": String
       }
-    },
-    "links": {
-      "external_url": String
-    }
     }
   ],
   "pagination": {
