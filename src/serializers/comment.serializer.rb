@@ -14,7 +14,7 @@ class CommentSerializer < BaseSerializer
 
     serialized_feature = FeatureSerializer.new(model.feature).serialize
 
-    attributes = hash.except("id")
+    attributes = hash.except("id", "feature_id")
       .merge({
         "feature" => serialized_feature
       })
