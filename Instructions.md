@@ -43,7 +43,7 @@ Se espera que se desarrollen dos endpoints para exponer la data y modificar data
         "coordinates": {
           "longitude": Decimal,
           "latitude": Decimal
-          }
+        }
       },
       "links": {
         "external_url": String

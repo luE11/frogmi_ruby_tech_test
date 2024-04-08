@@ -20,7 +20,7 @@ class FeatureModelSpec < Minitest::Test
       time: 1712416582640,
       url: "http://localhost/earthquake",
       tsunami: 0,
-      magType: "ml",
+      mag_type: "ml",
       title: "M 2.3 - 14 km E of Coso Junction, CA",
       longitude: -117.7916667,
       latitude: 36.0268333
@@ -45,7 +45,7 @@ class FeatureModelSpec < Minitest::Test
     assert feature.errors.on(:title)[0]==EMPTY_FIELD_ERROR_MESSAGE
     assert feature.errors.on(:url)[0]==EMPTY_FIELD_ERROR_MESSAGE
     assert feature.errors.on(:place)[0]==EMPTY_FIELD_ERROR_MESSAGE
-    assert feature.errors.on(:magType)[0]==EMPTY_FIELD_ERROR_MESSAGE
+    assert feature.errors.on(:mag_type)[0]==EMPTY_FIELD_ERROR_MESSAGE
     assert feature.errors.on(:latitude)[0]==EMPTY_FIELD_ERROR_MESSAGE
     assert feature.errors.on(:longitude)[0]==EMPTY_FIELD_ERROR_MESSAGE
   end
@@ -61,7 +61,7 @@ class FeatureModelSpec < Minitest::Test
       time: 1712416582640,
       url: "http://localhost/earthquake",
       tsunami: 0,
-      magType: "ml",
+      mag_type: "ml",
       title: "M 2.3 - 14 km E of Coso Junction, CA",
       longitude: -190.7916667,
       latitude: 96.0268333

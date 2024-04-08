@@ -6,7 +6,7 @@ module Models
       errors.add(:title, "can't be empty") if title.nil? || title.empty?
       errors.add(:url, "can't be empty") if url.nil? || url.empty?
       errors.add(:place, "can't be empty") if place.nil? || place.empty?
-      errors.add(:magType, "can't be empty") if magType.nil? || magType.empty?
+      errors.add(:mag_type, "can't be empty") if mag_type.nil? || mag_type.empty?
       errors.add(:latitude, "can't be empty") if latitude.nil?
       errors.add(:longitude, "can't be empty") if longitude.nil?
       errors.add(:magnitude, "must be between -1.0 and 10.0") if magnitude && (magnitude<-1 || magnitude>10)

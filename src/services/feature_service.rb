@@ -48,8 +48,9 @@ module Services
     def format_feature_from_hash(hash)
       props = hash['properties']
       geometry = hash['geometry']
-      return props.slice('place', 'time', 'url', 'tsunami', 'magType', 'title')
+      return props.slice('place', 'time', 'url', 'tsunami', 'title')
       .merge!({
+        'mag_type' => props['magType'],
         'magnitude' => props['mag'],
         'external_id'=> hash['id'],
         'longitude'=> geometry['coordinates'][0],

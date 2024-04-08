@@ -8,7 +8,7 @@ DB.create_table? :features do
   Time :time
   String :url, null: false
   Integer :tsunami
-  String :magType, null: false
+  String :mag_type, null: false
   String :title, null: false
   Float :longitude, null: false
   Float :latitude, null: false

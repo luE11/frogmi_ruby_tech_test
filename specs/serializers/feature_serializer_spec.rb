@@ -22,7 +22,7 @@ class FeatureSerializerSpec < Minitest::Test
         "place"=>"Atlantis",
         "time"=>1712416582640,
         "tsunami"=>0,
-        "magType"=>"ml",
+        "mag_type"=>"ml",
         "title"=>"M 2.3 - 14 km E of Coso Junction, CA",
         "coordinates"=>{
           "longitude"=>-117.7916667,
@@ -40,7 +40,7 @@ class FeatureSerializerSpec < Minitest::Test
       time: 1712416582640,
       url: "http://localhost/earthquake",
       tsunami: 0,
-      magType: "ml",
+      mag_type: "ml",
       title: "M 2.3 - 14 km E of Coso Junction, CA",
       longitude: -117.7916667,
       latitude: 36.0268333
