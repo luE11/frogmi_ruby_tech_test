@@ -7,7 +7,7 @@ class BaseSerializer
   end
 
   ##
-  # Converts model object to hash, with required format and the addition of hypermedia links
+  # Converts model object to hash, with required format
   def serialize()
     raise "Serialize method not implemented"
   end

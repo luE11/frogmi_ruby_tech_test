@@ -1,6 +1,10 @@
 require_relative 'base_serializer'
 
+##
+# Feature model serializer class
 class FeatureSerializer < BaseSerializer
+  ##
+  # Serialize a Feature model instance with the required format. Returns object attributes as a Hash
   def serialize
     jsn = model.to_json
     hash = JSON.parse(jsn)
