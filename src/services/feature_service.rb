@@ -25,7 +25,7 @@ module Services
     end
 
     def get_serialized_features(mag_type:, page:, per_page:)
-      features = get_features(mag_type, page, per_page)
+      features = get_features(mag_type: mag_type, page: page, per_page: per_page)
       return SerializerSet.new(
         object_set: features_to_serializers(features),
         current_page: page,

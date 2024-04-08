@@ -3,17 +3,17 @@ require 'minitest/hooks/test'
 require_relative '../spec_helper'
 require_relative '../../src/models/feature.model'
 require_relative '../../src/services/feature_service'
-require_relative '../../src/errors/invalid_magtype_value_error'
 include Models
 include CustomErrors
 
 ##
 # SerializerSet class tests
 #
-class FeatureServiceGetFeaturesSpec < Minitest::Test
+class FeatureServiceGetSerializedFeaturesSpec < Minitest::Test
   include Minitest::Hooks
 
   def before_all
+    DB.transaction(rollback: :always, auto_savepoint: true){super}
     features = get_dummy_features
     features.each do |feature|
       feature.save
@@ -28,88 +28,15 @@ class FeatureServiceGetFeaturesSpec < Minitest::Test
   ##
   # Executes the SerializerSet "format" method with an array of FeatureSerializer instances as parameter.
   # Then checks if the output matches the required format
-  def test_get_features_string_valid_magtype
+  def test_get_serialized_features
+    expected_result = get_expected_result
     mag_type = "md"
     page = 1
-    per_page = 20
+    per_page = 5
 
-    res = @feature_service.get_features(mag_type:mag_type, page: page, per_page: per_page)
-    assert_equal(3, res.length)
-  end
+    res = @feature_service.get_serialized_features(mag_type:mag_type, page: page, per_page: per_page)
 
-  def test_get_features_string_invalid_magtype_should_raise_exception
-    mag_type = "m9"
-    page = 1
-    per_page = 20
-
-    assert_raises InvalidMagTypeValueError do
-      @feature_service.get_features(mag_type:mag_type, page: page, per_page: per_page)
-    end
-  end
-
-  def test_get_features_invalid_magtype_class_should_raise_exception
-    mag_type = 14.78
-    page = 1
-    per_page = 20
-
-    assert_raises InvalidMagTypeValueError do
-      @feature_service.get_features(mag_type:mag_type, page: page, per_page: per_page)
-    end
-  end
-
-  def test_get_features_no_magtype
-    page = 1
-    per_page = 20
-
-    res = @feature_service.get_features(page: page, per_page: per_page)
-    assert_equal(10, res.length)
-  end
-
-  def test_get_features_empty_string_magtype
-    mag_type = ""
-    page = 1
-    per_page = 20
-
-    res = @feature_service.get_features(mag_type:mag_type, page: page, per_page: per_page)
-    assert_equal(10, res.length)
-  end
-
-  def test_get_features_empty_array_magtype
-    mag_type = []
-    page = 1
-    per_page = 20
-
-    assert_raises InvalidMagTypeValueError do
-      @feature_service.get_features(mag_type:mag_type, page: page, per_page: per_page)
-    end
-  end
-
-  def test_get_features_valid_array_values_magtype
-    mag_type = ["md", "mi"]
-    page = 1
-    per_page = 20
-
-    res = @feature_service.get_features(mag_type:mag_type, page: page, per_page: per_page)
-    assert_equal(7, res.length)
-  end
-
-  def test_get_features_invalid_array_values_magtype
-    mag_type = ["m1", "m0", "m2"]
-    page = 1
-    per_page = 20
-
-    assert_raises InvalidMagTypeValueError do
-      @feature_service.get_features(mag_type:mag_type, page: page, per_page: per_page)
-    end
-  end
-
-  def test_get_features_partially_valid_array_values_magtype
-    mag_type = ["md", "m1"]
-    page = 1
-    per_page = 20
-
-    res = @feature_service.get_features(mag_type:mag_type, page: page, per_page: per_page)
-    assert_equal(3, res.length)
+    assert_equal(expected_result, res)
   end
 
   def get_dummy_features
@@ -235,5 +162,77 @@ class FeatureServiceGetFeaturesSpec < Minitest::Test
         latitude: 36.0268333
       ).tap { |o| o.id = 10 },
     ]
+  end
+
+  def get_expected_result
+    return {
+      "data"=>[
+        {
+          "id"=>1,
+          "type"=>"feature",
+          "attributes"=>{
+            "external_id"=>"123a",
+            "magnitude"=>5.2,
+            "place"=>"Atlantis",
+            "time"=>"56234-04-28 03:57:20 -0500",
+            "tsunami"=>0,
+            "mag_type"=>"md",
+            "title"=>"M 2.3 - 14 km E of Coso Junction, CA123",
+            "coordinates"=>{
+              "longitude"=>-117.7916667,
+              "latitude"=>36.0268333
+            }
+          },
+          "links"=>{
+            "external_url"=>"http://localhost/earthquake/123a"
+          }
+        },
+        {
+          "id"=>4,
+          "type"=>"feature",
+          "attributes"=>{
+            "external_id"=>"1236a",
+            "magnitude"=>5.2,
+            "place"=>"Atlantis",
+            "time"=>"56234-04-28 03:57:20 -0500",
+            "tsunami"=>0,
+            "mag_type"=>"md",
+            "title"=>"M 2.3 - 14 km E of Coso Junction, CA123",
+            "coordinates"=>{
+              "longitude"=>-117.7916667,
+              "latitude"=>36.0268333
+            }
+          },
+          "links"=>{
+            "external_url"=>"http://localhost/earthquake/123a"
+          }
+        },
+        {
+          "id"=>7,
+          "type"=>"feature",
+          "attributes"=>{
+            "external_id"=>"1239a",
+            "magnitude"=>5.2,
+            "place"=>"Atlantis",
+            "time"=>"56234-04-28 03:57:20 -0500",
+            "tsunami"=>0,
+            "mag_type"=>"md",
+            "title"=>"M 2.3 - 14 km E of Coso Junction, CA123",
+            "coordinates"=>{
+              "longitude"=>-117.7916667,
+              "latitude"=>36.0268333
+            }
+          },
+          "links"=>{
+            "external_url"=>"http://localhost/earthquake/123a"
+          }
+        }
+      ],
+      "pagination"=>{
+        "current_page"=>1,
+        "total"=>10,
+        "per_page"=>5
+      }
+    }
   end
 end

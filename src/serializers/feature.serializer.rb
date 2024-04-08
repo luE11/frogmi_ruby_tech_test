@@ -1,4 +1,6 @@
 require_relative 'base_serializer'
+require_relative '../models/feature.model'
+include Models
 
 ##
 # Feature model serializer class
@@ -16,7 +18,7 @@ class FeatureSerializer < BaseSerializer
 
     ser = {
       "id" => hash["id"],
-      "type" => @model.class.name.split('::').last.downcase,
+      "type" => Feature.name.split('::').last.downcase,
       "attributes" => attributes,
       "links" => {
         "external_url" => hash["url"]
