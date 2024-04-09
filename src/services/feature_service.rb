@@ -37,6 +37,7 @@ module Services
     def get_serialized_features(mag_type: nil, page: nil, per_page: nil)
       page ||=1
       per_page ||=10
+      per_page = 1000 if per_page>1000
       features = get_features(mag_type: mag_type, page: page, per_page: per_page)
       return SerializerSet.new(
         object_set: features_to_serializers(features),

@@ -44,10 +44,10 @@ class CommentControllerTest < Minitest::Test
   end
 
   ##
-  # Activates GET /comments/report endpoint and asserts that application returns a report
+  # Activates GET /api/comments/report endpoint and asserts that application returns a report
   # with stored comments data
   def test_get_comments_report
-    get '/comments/report'
+    get '/api/comments/report'
     body = JSON.parse(last_response.body)
     report = body["data"]
     assert last_response.ok?
@@ -55,14 +55,14 @@ class CommentControllerTest < Minitest::Test
   end
 
   ##
-  # Activates POST /comments endpoint with valid body and asserts that application returns
+  # Activates POST /api/features/id/comments endpoint with valid body and asserts that application returns
   # the inserted comment record with its auto-generated id
   def test_post_create_comment_valid_payload
+    feature_id = 1
     payload = {
-      "message" => "What a nice feature test!",
-      "feature_id" => 1
+      "message" => "What a nice feature test!"
     }
-    post '/comments', payload.to_json, { 'CONTENT_TYPE' => 'application/json' }
+    post "/api/features/#{id}/comments", payload.to_json, { 'CONTENT_TYPE' => 'application/json' }
 
     comment = JSON.parse(last_response.body)
     assert last_response.ok?
@@ -72,14 +72,14 @@ class CommentControllerTest < Minitest::Test
   end
 
   ##
-  # Activates POST /comments endpoint with invalid body and asserts that application returns
+  # Activates POST /api/features/id/comments endpoint with invalid body and asserts that application returns
   # error response with HTTP 400 code (Bad Request). Validates that response contains info about errors
   def test_post_create_comment_invalid_payload
+    feature_id = "a"
     payload = {
-      "message" => "",
-      "feature_id" => "a"
+      "message" => ""
     }
-    post '/comments', payload.to_json, { 'CONTENT_TYPE' => 'application/json' }
+    post "/api/features/#{id}/comments", payload.to_json, { 'CONTENT_TYPE' => 'application/json' }
 
     errors = JSON.parse(last_response.body)
     assert !last_response.ok?
@@ -89,14 +89,14 @@ class CommentControllerTest < Minitest::Test
   end
 
   ##
-  # Activates POST /comments endpoint with valid body but the feature_id doesn't match any feature record in database
+  # Activates POST /api/features/id/comments endpoint with valid body but the feature_id doesn't match any feature record in database
   # and asserts that application returns error response with HTTP 404 code (Resource not found).
   def test_post_create_comment_unexisting_feature
+    feature_id = 10
     payload = {
-      "message" => "Valid message",
-      "feature_id" => 10
+      "message" => "Valid message"
     }
-    post '/comments', payload.to_json, { 'CONTENT_TYPE' => 'application/json' }
+    post "/api/features/#{id}/comments", payload.to_json, { 'CONTENT_TYPE' => 'application/json' }
 
     errors = JSON.parse(last_response.body)
 
