@@ -4,7 +4,7 @@ require_relative '../../src/models/comment.model'
 include Models
 
 ##
-# Set of Feature model validation tests
+# Set of Comment model validation tests
 #
 class CommentModelSpec < Minitest::Test
   EMPTY_FIELD_ERROR_MESSAGE="can't be empty"

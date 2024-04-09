@@ -6,6 +6,8 @@ include Services
 include CustomErrors
 
 module Controllers
+  ##
+  # FeatureController class which exposes Feature services
   class FeatureController < Sinatra::Base
     include RequestParamsHelper
     include RequestErrorResponseHelper
@@ -19,6 +21,9 @@ module Controllers
       content_type 'application/json'
     end
 
+    ##
+    # Returns a paginated list of features stored into database.
+    # If mag_type is included and its value is invalid, return an error response with HTTP 400 code (Bad Request)
     get "/features" do
       mag_type = params['mag_type']
       page = number_or_nil(params['page'])

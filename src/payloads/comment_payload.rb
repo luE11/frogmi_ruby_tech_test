@@ -1,5 +1,7 @@
 require_relative '../../helpers/request_params_helper'
 
+##
+# Input comment creation payload class with validation purposes
 class CommentPayload
   include RequestParamsHelper
 
@@ -9,6 +11,9 @@ class CommentPayload
     @feature_id = feature_id
   end
 
+  ##
+  # Checks if payload has errors, returning them in a String array.
+  # An empty array is returned if there're no errors
   def errors
     err = []
     if @message.nil?

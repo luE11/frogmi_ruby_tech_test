@@ -6,6 +6,8 @@ include Services
 include CustomErrors
 
 module Controllers
+  ##
+  # CommentController class which exposes Comment services
   class CommentController < Sinatra::Base
     include RequestErrorResponseHelper
 
@@ -18,6 +20,10 @@ module Controllers
       content_type 'application/json'
     end
 
+    ##
+    # Posts a new comment by passing a JSON body with message and feature_id to the request.
+    # Returns an error response with HTTP 400 code if payload has invalid values.
+    # Returns an error response with HTTP 404 code if feature_id value doesn't match with a existing Feature record
     post "/comments" do
       body = JSON.parse(request.body.read)
       payload = CommentPayload.new(message: body["message"], feature_id: body["feature_id"])
@@ -37,6 +43,8 @@ module Controllers
       end
     end
 
+    ##
+    # Returns a simple report containing data about every comment stored into database
     get "/comments/report" do
       return @comment_service.generate_basic_comment_report.to_json
     end

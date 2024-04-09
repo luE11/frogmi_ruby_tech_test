@@ -1,4 +1,5 @@
 module Models
+  # Comment Model class extended from Sequel::Model
   class Comment < Sequel::Model
     plugin :json_serializer
     many_to_one :feature
