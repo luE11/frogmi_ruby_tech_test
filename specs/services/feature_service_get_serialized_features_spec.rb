@@ -12,7 +12,6 @@ class FeatureServiceGetSerializedFeaturesSpec < Minitest::Test
   include Minitest::Hooks
 
   def before_all
-    DB.transaction(rollback: :always, auto_savepoint: true){super}
     features = get_dummy_features
     features.each do |feature|
       feature.save

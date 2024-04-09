@@ -28,7 +28,7 @@ module Controllers
         return res.to_json
       rescue InvalidMagTypeValueError => e
         return halt 400, create_error_response(
-            code: 400, type: "ParamError", message: e.message, path: request.fullpath
+            code: 400, type: "ParamError", details: e.message, path: request.fullpath
           ).to_json
       end
       return halt 500, "Internal error"

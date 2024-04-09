@@ -27,8 +27,9 @@ module Services
 
     ##
     # Checks if feature exists by given id
-    def exists_by_id(id)
-      return Feature[id].exists?
+    def exists_by_id?(id)
+      feature = Feature[id]
+      return !feature.nil? && feature.exists?
     end
 
     ##

@@ -19,6 +19,6 @@ end
 
 DB.create_table? :comments do
   primary_key :id
-  String :comment, null: false
+  String :message, null: false
   foreign_key :feature_id, :features
 end
