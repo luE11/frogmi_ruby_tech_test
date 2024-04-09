@@ -7,9 +7,9 @@ gem "sequel"
 gem "mysql2"
 gem "rake"
 gem "rackup"
+gem "dotenv"
 
 group :development, :test do
-  gem "dotenv"
   gem "sqlite3"
   gem "minitest"
   gem "minitest-hooks"

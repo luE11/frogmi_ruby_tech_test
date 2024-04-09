@@ -3,17 +3,19 @@ require 'minitest/hooks/test'
 require_relative '../spec_helper'
 require_relative '../../src/models/feature.model'
 require_relative '../../src/models/comment.model'
-require_relative '../../src/serializers/comment.serializer'
+require_relative '../../src/services/comment_service'
+require_relative '../../src/errors/feature_does_not_exist_error'
 include Models
+include CustomErrors
 
 ##
-# Set of Comment Serializer class (which inherits from BaseSerializer class) tests
-#
-class CommentSerializerSpec < Minitest::Test
+# CommentService class with "create_comment_serialized" method tests
+class CommentServiceCreateCommentSerializedSpec < Minitest::Test
   include Minitest::Hooks
 
   def before_all
     save_dummy_feature
+    @comment_service = Services::CommentService.instance
   end
 
   def after_all
@@ -21,12 +23,8 @@ class CommentSerializerSpec < Minitest::Test
     DB[:features].delete
   end
 
-  ##
-  # Serializes a Comment model object, then compares it with an expected format
-  def test_comment_serialization
-
-    expected_format =
-    {
+  def test_create_comment_serialized_with_correct_format
+    expected_result = {
       "id"=>1,
       "type"=>"comment",
       "attributes"=>{
@@ -54,12 +52,13 @@ class CommentSerializerSpec < Minitest::Test
       }
     }
 
-    comment = Comment.new(message: "What a nice feature!", feature_id: 1).tap { |o| o.id = 1 }
-    comment.save
+    message= "What a nice feature!"
+    feature_id= 1
 
-    ser = CommentSerializer.new(comment).serialize
+    comment_serialized = @comment_service.create_comment_serialized(message: message, feature_id: feature_id)
+    comment_serialized["id"] = 1 # Overwrite id, sequence altered when running all tests
 
-    assert ser==expected_format
+    assert_equal expected_result, comment_serialized
   end
 
   def save_dummy_feature
