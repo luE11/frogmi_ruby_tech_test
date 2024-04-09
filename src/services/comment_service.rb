@@ -40,6 +40,15 @@ module Services
       return comment.save
     end
 
+    def generate_basic_comment_report
+      comments = Comment.dataset.all
+      report = comments.map do |comment|
+        "Comment with id #{comment.id} to feature with id #{comment.feature.id} and title #{comment.feature.title}"
+      end
+      return {
+        "data" => report
+      }
+    end
 
     def feature_exists?(feature_id)
       return @feature_service.exists_by_id?(feature_id)

@@ -2,7 +2,6 @@ require 'minitest/autorun'
 require 'minitest/hooks/test'
 require_relative '../spec_helper'
 require_relative '../../src/models/feature.model'
-require_relative '../../src/models/comment.model'
 require_relative '../../src/services/comment_service'
 require_relative '../../src/errors/feature_does_not_exist_error'
 include Models
