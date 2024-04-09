@@ -9,9 +9,14 @@ class Server < Sinatra::Base
   use FeatureController
   use CommentController
 
-  # TODO:
+  FRONT_END_HTML_RELATIVE_LOCATION = './client/dist/client/index.html'
+
+  set :public_folder, "./client/dist/client"
+
+  ##
+  # Serves frontend build Angular HTML
   get "/" do
-    "Hello"
+    send_file FRONT_END_HTML_RELATIVE_LOCATION
   end
 
 end
