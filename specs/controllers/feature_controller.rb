@@ -4,14 +4,20 @@ require 'minitest/autorun'
 require 'minitest/hooks/test'
 require 'rack/test'
 
+##
+# Set of FeatureController tests
 class FeatureControllerTest < Minitest::Test
   include Rack::Test::Methods
   include Minitest::Hooks
 
+  ##
+  # To run application into mock server
   def app
     Server
   end
 
+  ##
+  # Seeds test features before start running tests
   def before_all
     features = get_dummy_features
     features.each do |feature|
@@ -19,10 +25,14 @@ class FeatureControllerTest < Minitest::Test
     end
   end
 
+  ##
+  # Remove all feature records inserted by tests execution
   def after_all
     DB[:features].delete
   end
 
+  ##
+  # Activates GET /features endpoint and asserts that application returns features of query with default params
   def test_get_features_no_params
     get '/features'
     body = JSON.parse(last_response.body)
@@ -35,6 +45,8 @@ class FeatureControllerTest < Minitest::Test
     assert_equal 1, pagination["current_page"]
   end
 
+  ##
+  # Activates GET /features endpoint with valid params and asserts that application returns expected features list
   def test_get_features_valid_params
     get '/features', :mag_type => 'mi', :per_page => 2, :page => 2
     body = JSON.parse(last_response.body)
@@ -47,6 +59,9 @@ class FeatureControllerTest < Minitest::Test
     assert_equal 2, pagination["current_page"]
   end
 
+  ##
+  # Activates GET /features endpoint with invalid mag_type type and asserts that application
+  # returns error response with HTTP 400 code (Bad Request)
   def test_get_features_invalid_params
     get '/features', :mag_type => 3
     errors = JSON.parse(last_response.body)

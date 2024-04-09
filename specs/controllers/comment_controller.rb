@@ -4,25 +4,20 @@ require 'minitest/autorun'
 require 'minitest/hooks/test'
 require 'rack/test'
 
+##
+# Set of FeatureController tests
 class CommentControllerTest < Minitest::Test
   include Rack::Test::Methods
   include Minitest::Hooks
 
+  ##
+  # To run application into mock server
   def app
     Server
   end
 
-  def before_all
-    features = get_dummy_features
-    features.each do |feature|
-      feature.save
-    end
-    comments = get_dummy_comments
-    comments.each do |comment|
-      comment.save
-    end
-  end
-
+  ##
+  # Seeds test features and comments before start running each test
   def setup
     clear_database
     features = get_dummy_features
@@ -35,15 +30,22 @@ class CommentControllerTest < Minitest::Test
     end
   end
 
+  ##
+  # Cleans database after executing all tests
   def after_all
     clear_database
   end
 
+  ##
+  # Cleans comments and features tables
   def clear_database
     DB[:comments].delete
     DB[:features].delete
   end
 
+  ##
+  # Activates GET /comments/report endpoint and asserts that application returns a report
+  # with stored comments data
   def test_get_comments_report
     get '/comments/report'
     body = JSON.parse(last_response.body)
@@ -52,6 +54,9 @@ class CommentControllerTest < Minitest::Test
     assert_equal 4, report.length
   end
 
+  ##
+  # Activates POST /comments endpoint with valid body and asserts that application returns
+  # the inserted comment record with its auto-generated id
   def test_post_create_comment_valid_payload
     payload = {
       "message" => "What a nice feature test!",
@@ -66,6 +71,9 @@ class CommentControllerTest < Minitest::Test
     assert_equal payload["feature_id"], comment["attributes"]["feature"]["id"]
   end
 
+  ##
+  # Activates POST /comments endpoint with invalid body and asserts that application returns
+  # error response with HTTP 400 code (Bad Request). Validates that response contains info about errors
   def test_post_create_comment_invalid_payload
     payload = {
       "message" => "",
@@ -80,6 +88,9 @@ class CommentControllerTest < Minitest::Test
     assert_equal 2, errors["details"].length
   end
 
+  ##
+  # Activates POST /comments endpoint with valid body but the feature_id doesn't match any feature record in database
+  # and asserts that application returns error response with HTTP 404 code (Resource not found).
   def test_post_create_comment_unexisting_feature
     payload = {
       "message" => "Valid message",
