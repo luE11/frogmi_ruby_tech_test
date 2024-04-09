@@ -1,4 +1,6 @@
 module Models
+  ##
+  # Feature Model class extended from Sequel::Model
   class Feature < Sequel::Model
     plugin :json_serializer
     def validate

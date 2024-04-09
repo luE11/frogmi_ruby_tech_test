@@ -25,11 +25,16 @@ module Services
       @instance
     end
 
+    ##
+    # Calls create_comment method and serializes and returns the newly stored Comment record with a specific format
     def create_comment_serialized(message:, feature_id:)
       comment = create_comment(message: message, feature_id: feature_id)
       return CommentSerializer.new(comment).serialize
     end
 
+    ##
+    # Creates a comment, by inserting it into the database.
+    # If specified feature_id doesn't match with any Feature records, raises a FeatureDoesNotExistError
     def create_comment(message:, feature_id:)
       if !feature_exists?(feature_id)
         raise FeatureDoesNotExistError.new(
@@ -40,6 +45,10 @@ module Services
       return comment.save
     end
 
+    ##
+    # Generates a simple comment report by specifying a String for each Comment record.
+    # Each String contains the comment id, feature id and feature title.
+    # Returns the report as a Hash object
     def generate_basic_comment_report
       comments = Comment.dataset.all
       report = comments.map do |comment|
@@ -50,6 +59,8 @@ module Services
       }
     end
 
+    ##
+    # Checks if a Feature record exists by passing a feature_id
     def feature_exists?(feature_id)
       return @feature_service.exists_by_id?(feature_id)
     end
