@@ -13,4 +13,5 @@ group :development, :test do
   gem "sqlite3"
   gem "minitest"
   gem "minitest-hooks"
+  gem "rack-test"
 end

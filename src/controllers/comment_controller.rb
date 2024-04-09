@@ -36,9 +36,8 @@ module Controllers
       begin
         return @comment_service.create_comment_serialized(message: payload.message, feature_id: payload.feature_id).to_json
       rescue FeatureDoesNotExistError => e
-        full_message = e.message + ". With feature_id: #{payload.feature_id}"
         return halt 404, create_error_response(
-            code: 404, type: "Not found error", details: full_message, path: request.fullpath
+            code: 404, type: "Entity not found error", details: e.message, path: request.fullpath
           ).to_json
       end
     end
