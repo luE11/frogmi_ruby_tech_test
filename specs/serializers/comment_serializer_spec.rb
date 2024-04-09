@@ -7,7 +7,7 @@ require_relative '../../src/serializers/comment.serializer'
 include Models
 
 ##
-# Set of Feature Serializer class (which inherits from BaseSerializer class) tests
+# Set of Comment Serializer class (which inherits from BaseSerializer class) tests
 #
 class CommentSerializerSpec < Minitest::Test
   include Minitest::Hooks
@@ -22,8 +22,8 @@ class CommentSerializerSpec < Minitest::Test
   end
 
   ##
-  # Serializes a Feature model object, then compares it with an expected format
-  def test_feature_serialization
+  # Serializes a Comment model object, then compares it with an expected format
+  def test_comment_serialization
 
     expected_format =
     {

@@ -12,9 +12,9 @@ class CommentPayload
   def errors
     err = []
     if @message.nil?
-      err.push("Message field is required")
+      err.push("message field is required")
     elsif @message.empty?
-      err.push("Message field must not be empty")
+      err.push("message field must not be empty")
     end
     cast_feature_id = number_or_nil(@feature_id)
     if @feature_id.nil?
