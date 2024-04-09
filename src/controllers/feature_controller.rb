@@ -24,7 +24,7 @@ module Controllers
     ##
     # Returns a paginated list of features stored into database.
     # If mag_type is included and its value is invalid, return an error response with HTTP 400 code (Bad Request)
-    get "/features" do
+    get "/api/features" do
       mag_type = params['mag_type']
       page = number_or_nil(params['page'])
       per_page = number_or_nil(params['per_page'])

@@ -32,9 +32,9 @@ class FeatureControllerTest < Minitest::Test
   end
 
   ##
-  # Activates GET /features endpoint and asserts that application returns features of query with default params
+  # Activates GET /api/features endpoint and asserts that application returns features of query with default params
   def test_get_features_no_params
-    get '/features'
+    get '/api/features'
     body = JSON.parse(last_response.body)
     features = body["data"]
     pagination = body["pagination"]
@@ -46,9 +46,9 @@ class FeatureControllerTest < Minitest::Test
   end
 
   ##
-  # Activates GET /features endpoint with valid params and asserts that application returns expected features list
+  # Activates GET /api/features endpoint with valid params and asserts that application returns expected features list
   def test_get_features_valid_params
-    get '/features', :mag_type => 'mi', :per_page => 2, :page => 2
+    get '/api/features', :mag_type => 'mi', :per_page => 2, :page => 2
     body = JSON.parse(last_response.body)
     features = body["data"]
     pagination = body["pagination"]
@@ -60,10 +60,10 @@ class FeatureControllerTest < Minitest::Test
   end
 
   ##
-  # Activates GET /features endpoint with invalid mag_type type and asserts that application
+  # Activates GET /api/features endpoint with invalid mag_type type and asserts that application
   # returns error response with HTTP 400 code (Bad Request)
   def test_get_features_invalid_params
-    get '/features', :mag_type => 3
+    get '/api/features', :mag_type => 3
     errors = JSON.parse(last_response.body)
     assert !last_response.ok?
     assert_equal 400, last_response.status
