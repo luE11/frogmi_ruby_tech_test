@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from  '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { FeatureListComponent } from './components/feature-list/feature-list.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FeatureListComponent,
   ],
   imports: [
     BrowserModule,
