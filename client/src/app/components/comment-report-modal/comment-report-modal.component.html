@@ -1,0 +1,18 @@
+<div class="modal-dialog modal-dialog-scrollable my-0">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalScrollableTitle">Stored Comments</h1>
+            <button type="button" class="btn-close" (click)="activeModal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body vh-60">
+            <ul class="list-group" *ngIf="report!==undefined">
+                <li class="list-group-item" *ngFor="let line of this.report!.data; index as i" [ngClass]="{'list-group-item-secondary': i%2==0}">
+                    <p >{{line}}</p>
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">Close</button>
+        </div>
+    </div>
+</div>

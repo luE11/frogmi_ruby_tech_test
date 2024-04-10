@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FeatureFilter } from 'src/app/interfaces/feature-filter';
 import { FeatureList } from 'src/app/interfaces/feature-list';
 import { FeatureService } from 'src/app/services/feature.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { CommentReportModalComponent } from '../comment-report-modal/comment-report-modal.component';
 
 @Component({
   selector: 'app-feature-list',
@@ -20,6 +22,7 @@ export class FeatureListComponent {
 
   constructor(private _route: ActivatedRoute,
     private _router: Router,
+    private modalService: NgbModal,
     private featureService: FeatureService) { }
 
   ngOnInit(){
@@ -125,6 +128,10 @@ export class FeatureListComponent {
     let total = this.features?.pagination.total;
     let per_page = this.features?.pagination.per_page;
     return Math.ceil(total/per_page);
+  }
+
+  showCommentReportModal(){
+    this.modalService.open(CommentReportModalComponent);
   }
 
 }

@@ -10,7 +10,7 @@ import { FeatureFilter } from '../interfaces/feature-filter';
 })
 export class FeatureService {
 
-  private fetchFeaturesUrl = "/api/features"
+  private readonly FETCH_FEATURES_ENDPOINT = "/api/features"
 
   constructor(private http: HttpClient) { }
 
@@ -29,6 +29,6 @@ export class FeatureService {
         queryParams = queryParams.append("per_page", params?.per_page)
       }
     }
-    return this.http.get<FeatureList>(this.fetchFeaturesUrl, { params: queryParams });
+    return this.http.get<FeatureList>(this.FETCH_FEATURES_ENDPOINT, { params: queryParams });
   }
 }
