@@ -5,12 +5,11 @@
             <button type="button" class="btn-close" (click)="activeModal.dismiss('Cross click')"></button>
         </div>
         <div class="modal-body vh-60">
-            <p>This is some placeholder content to show the scrolling behavior for modals. We use repeated line breaks
-                to demonstrate how content can exceed minimum inner height, thereby showing inner scrolling. When
-                content becomes longer than the predefined max-height of modal, content will be cropped and scrollable
-                within the modal.</p>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <p>This content should appear at the bottom after you scroll.</p>
+            <ul class="list-group" *ngIf="report!==undefined">
+                <li class="list-group-item" *ngFor="let line of this.report!.data; index as i" [ngClass]="{'list-group-item-secondary': i%2==0}">
+                    <p >{{line}}</p>
+                </li>
+            </ul>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">Close</button>

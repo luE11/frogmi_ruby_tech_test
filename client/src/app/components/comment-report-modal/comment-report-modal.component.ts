@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { CommentReport } from 'src/app/interfaces/comment-report';
+import { CommentService } from 'src/app/services/comment.service';
 
 @Component({
   selector: 'app-comment-report-modal',
@@ -8,8 +10,19 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CommentReportModalComponent {
 
-  constructor(public activeModal: NgbActiveModal){
+  report?: CommentReport;
+
+  constructor(public activeModal: NgbActiveModal,
+    private commentService: CommentService,
+  ){
     
+  }
+
+  ngOnInit(){
+    this.commentService.getCommentReport()
+      .subscribe(data => {
+        this.report = data;
+      });
   }
 
 }
