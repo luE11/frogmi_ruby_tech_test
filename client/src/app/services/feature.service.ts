@@ -10,7 +10,7 @@ import { FeatureFilter } from '../interfaces/feature-filter';
 })
 export class FeatureService {
 
-  private fetchFeaturesUrl = "http://localhost:9292/api/features"
+  private fetchFeaturesUrl = "/api/features"
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +19,7 @@ export class FeatureService {
     if(params!=undefined){
       if (params?.mag_type!=undefined) {
         params?.mag_type.forEach(element => {
-          queryParams = queryParams.append("mag_type", element)
+          queryParams = queryParams.append("mag_type[]", element)
         });
       }
       if(params?.page!=undefined) {

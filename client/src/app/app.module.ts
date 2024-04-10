@@ -4,6 +4,7 @@ import { HttpClientModule } from  '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { FeatureListComponent } from './components/feature-list/feature-list.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { FeatureListComponent } from './components/feature-list/feature-list.com
   imports: [
     BrowserModule,
     HttpClientModule,
+    RouterModule.forRoot([]),
   ],
   providers: [],
   bootstrap: [AppComponent]
