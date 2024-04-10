@@ -8,12 +8,20 @@ import { FeatureFilter } from '../interfaces/feature-filter';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Service to consume server features endpoints
+ */
 export class FeatureService {
 
   private readonly FETCH_FEATURES_ENDPOINT = "/api/features"
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Consumes /api/features service to get a list of stores features
+   * @param params filter options object
+   * @returns Observable with request response
+   */
   getFeatures(params?: FeatureFilter) : Observable<FeatureList> {
     let queryParams = new HttpParams();
     if(params!=undefined){

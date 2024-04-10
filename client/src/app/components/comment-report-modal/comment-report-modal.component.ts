@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommentReport } from 'src/app/interfaces/comment-report';
 import { CommentService } from 'src/app/services/comment.service';
 
@@ -8,6 +8,9 @@ import { CommentService } from 'src/app/services/comment.service';
   templateUrl: './comment-report-modal.component.html',
   styleUrls: ['./comment-report-modal.component.css']
 })
+/**
+ * Modal which shows a simple report about every comment stored
+ */
 export class CommentReportModalComponent {
 
   report?: CommentReport;
