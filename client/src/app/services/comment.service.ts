@@ -8,6 +8,9 @@ import { Comment } from '../interfaces/comment';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Service to consume server comment endpoints
+ */
 export class CommentService {
 
   private readonly GET_COMMENT_REPORT_ENDPOINT = "/api/comments/report";
@@ -15,10 +18,19 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Gets a comment report including all stored comments
+   * @returns Observable object with request response
+   */
   getCommentReport() : Observable<CommentReport> {
     return this.http.get<CommentReport>(this.GET_COMMENT_REPORT_ENDPOINT)
   }
 
+  /**
+   * Posts a comment with given attributes
+   * @param comment input object with new comment data
+   * @returns Observable with inserted comment object
+   */
   postComment(comment: CommentInput) : Observable<Comment> {
     let url: string = this.POST_COMMENT_ENDPOINT(comment.feature_id!);
     return this.http.post<Comment>(url, { message: comment.message });
