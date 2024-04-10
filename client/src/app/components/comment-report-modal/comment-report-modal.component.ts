@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommentReport } from 'src/app/interfaces/comment-report';
 import { CommentService } from 'src/app/services/comment.service';
 

@@ -7,7 +7,8 @@
         <div class="col-6">
             <p class="d-inline me-2">MagTypes:</p>
             <div class="form-check form-check-inline" *ngFor="let type of this.MAG_TYPE_OPTIONS; index as i">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox{{i}}" value="{{type}}" [checked]="this.isMagTypeSelected(type)" (click)="this.onMagTypeChange($event)">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox{{i}}" value="{{type}}"
+                    [checked]="this.isMagTypeSelected(type)" (click)="this.onMagTypeChange($event)">
                 <label class="form-check-label" for="inlineCheckbox{{i}}">{{type}}</label>
             </div>
         </div>
@@ -17,7 +18,7 @@
                     <label for="per_page" class="col-form-label">Per page</label>
                 </div>
                 <div class="col-6">
-                    <input type="number" id="per_page" class="form-control" (change)="this.onPerPageChange($event)" >
+                    <input type="number" id="per_page" class="form-control" (change)="this.onPerPageChange($event)">
                 </div>
                 <div class="col-auto">
                     <button type="button" class="btn btn-primary" (click)="setFilter()">Filter</button>
@@ -43,7 +44,7 @@
                 </tr>
             </thead>
             <tbody class="table-group-divider" *ngIf="this.features!=undefined && this.features.data.length>0">
-                <tr *ngFor="let feature of this.features?.data">
+                <tr *ngFor="let feature of this.features?.data" (click)="this.showCreateCommentModal(feature.id)">
                     <th scope="row" class="align-middle">{{feature.id}}</th>
                     <td class="align-middle">{{feature.attributes.external_id}}</td>
                     <td class="align-middle">{{feature.attributes.title}}</td>
@@ -106,6 +107,19 @@
                     </li>
                 </ul>
             </nav>
+        </div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" *ngIf="this.toast!==undefined">
+        <div id="liveToast" class="toast" [ngClass]="{'fade show': this.toast!==undefined}" role="alert"
+            aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">{{this.toast!.feature_title}}</strong>
+                <small>New Comment</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                {{this.toast!.message}}
+            </div>
         </div>
     </div>
 </div>

@@ -1,24 +1,24 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FeatureFilter } from 'src/app/interfaces/feature-filter';
 import { FeatureList } from 'src/app/interfaces/feature-list';
 import { FeatureService } from 'src/app/services/feature.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommentReportModalComponent } from '../comment-report-modal/comment-report-modal.component';
-
+import { CreateCommentModalComponent } from '../create-comment-modal/create-comment-modal.component';
 @Component({
   selector: 'app-feature-list',
   templateUrl: './feature-list.component.html',
   styleUrls: ['./feature-list.component.css']
 })
 export class FeatureListComponent {
-
   readonly MAG_TYPE_OPTIONS: string[] = ["md", "ml", "ms", "mw", "me", "mi", "mb", "mlg"]
   features?: FeatureList
   filter: FeatureFilter = {
     page: 1,
     per_page: 10,
   }
+  toast?: { message: string, feature_title: string };
 
   constructor(private _route: ActivatedRoute,
     private _router: Router,
@@ -33,7 +33,7 @@ export class FeatureListComponent {
       }
       this.filter.page = parseInt(params['page'] || 1);
       this.filter.per_page = parseInt(params['per_page'] || 10);
-      this.getFeatures()
+      this.getFeatures();
     });
   }
 
@@ -132,6 +132,24 @@ export class FeatureListComponent {
 
   showCommentReportModal(){
     this.modalService.open(CommentReportModalComponent);
+  }
+
+  showCreateCommentModal(feature_id: number) {
+    const modalRef = this.modalService.open(CreateCommentModalComponent);
+    modalRef.componentInstance.feature_id = feature_id;
+    modalRef.componentInstance.showToast.subscribe((e: { message: string; feature_title: string; }) => {
+      this.showToast(e.message, e.feature_title);
+    } );
+  }
+
+  showToast(message: string, title: string){
+    this.toast = {
+      message: message,
+      feature_title: title
+    };
+    setTimeout(() => {
+      this.toast = undefined;
+    }, 8000);
   }
 
 }
