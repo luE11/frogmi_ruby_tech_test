@@ -1,1 +1,40 @@
-<p>feature-list works!</p>
+<div class="border rounded">
+    <div class="vh-100 overflow-y-auto invisible-scroll">
+        <table class="table caption-top">
+            <caption>List of features</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">External Id</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Mag Type</th>
+                    <th scope="col">Magnitude</th>
+                    <th scope="col">Tsunami</th>
+                    <th scope="col">Place</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Coordinates</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let feature of this.features?.data">
+                    <th scope="row">{{feature.id}}</th>
+                    <td>{{feature.attributes.external_id}}</td>
+                    <td>{{feature.attributes.title}}</td>
+                    <td>{{feature.attributes.mag_type}}</td>
+                    <td>{{feature.attributes.magnitude}}</td>
+                    <td>{{feature.attributes.tsunami}}</td>
+                    <td>{{feature.attributes.place}}</td>
+                    <td>{{feature.attributes.time}}</td>
+                    <td>
+                        Longitude: {{feature.attributes.coordinates.longitude}}
+                        <hr>
+                        Latitude: {{feature.attributes.coordinates.latitude}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        Showing {{this.features?.pagination?.per_page}} of {{this.features?.pagination?.total}} results. Page {{this.features?.pagination?.current_page}}
+    </div>
+</div>
