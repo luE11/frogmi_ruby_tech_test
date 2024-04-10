@@ -25,6 +25,8 @@ Ejecutar servidor
   bundle exec rackup app.ru
 ```
 
+con el argumento -p se puede especificar un puerto alterno al 
+
 Ejecutar test
 ``` bash
   bundle exec ruby specs/_spec.rb
@@ -51,6 +53,15 @@ Construir aplicación (HTML)
 ``` bash
   ng build
 ```
+
+## Endpoints
+
+| Endpoint | Descripción |
+| ------------- | ------------- |
+| GET /  | index.html (frontend)  |
+| GET /api/features  | Listado de features  |
+| GET /api/comments/report  | Listado simple de comentarios guardados  |
+| POST /api/features/{feature_id}/comments  | Inserción de un nuevo comentario asociado a una feature existente  |
 
 ## Capturas de aplicación
 
