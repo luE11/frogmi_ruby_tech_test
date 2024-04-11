@@ -8,7 +8,7 @@ Autor: Luis Eduardo Martínez Bautista
 | Herramienta | Versión |
 | ------------- | ------------- |
 | Ruby  | 3.0.2p107  |
-| Bundles  | 2.3.5  |
+| Bundler  | 2.3.5  |
 | Mariadb  | 10.4.28  |
 | TypeScript  | 5.0.4  |
 | Nodejs  | 18.16.0  |
