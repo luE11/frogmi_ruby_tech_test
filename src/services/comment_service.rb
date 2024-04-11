@@ -52,7 +52,7 @@ module Services
     def generate_basic_comment_report
       comments = Comment.dataset.all
       report = comments.map do |comment|
-        "Comment with id #{comment.id} to feature with id #{comment.feature.id} and title #{comment.feature.title}"
+        "Feature: '#{comment.feature.title}'. Message: #{comment.message}"
       end
       return {
         "data" => report
