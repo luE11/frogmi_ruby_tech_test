@@ -25,7 +25,7 @@ Ejecutar servidor
   bundle exec rackup app.ru
 ```
 
-con el argumento -p se puede especificar un puerto alterno al 
+con el argumento -p se puede especificar un puerto alterno al predeterminado (9292)
 
 Ejecutar test
 ``` bash
