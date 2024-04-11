@@ -171,7 +171,7 @@ module Services
     # Inserts in a database multiple rows of Feature from a Hash array. Ignores duplicates
     def store_multiple_features_from_hash(features)
       puts "Attempting to store #{features.length} features"
-      DB[:features].insert_conflict.multi_insert(features)
+      DB[:features].insert_ignore.multi_insert(features)
     end
 
   end
