@@ -32,10 +32,10 @@ class CommentServiceGenerateBasicCommentReportSpec < Minitest::Test
   def test_generate_basic_comment_report_with_correct_format
     expected_result = {
       "data"=>[
-        "Comment with id 1 to feature with id 1 and title M 2.3 - 14 km E of Coso Junction, CA123",
-        "Comment with id 2 to feature with id 2 and title M 2.3 - 14 km E of Coso Junction, CA1234",
-        "Comment with id 3 to feature with id 1 and title M 2.3 - 14 km E of Coso Junction, CA123",
-        "Comment with id 4 to feature with id 2 and title M 2.3 - 14 km E of Coso Junction, CA1234"
+        "Feature: 'M 2.3 - 14 km E of Coso Junction, CA123'. Message: What a nice feature!",
+        "Feature: 'M 2.3 - 14 km E of Coso Junction, CA1234'. Message: This is the best feature!",
+        "Feature: 'M 2.3 - 14 km E of Coso Junction, CA123'. Message: Magnitude of 5.2? D:",
+        "Feature: 'M 2.3 - 14 km E of Coso Junction, CA1234'. Message: Nice!"
       ]
     }
     comment_report = @comment_service.generate_basic_comment_report

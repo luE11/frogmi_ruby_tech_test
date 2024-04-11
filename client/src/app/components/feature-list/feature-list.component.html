@@ -43,7 +43,7 @@
                     <th scope="col">Url</th>
                 </tr>
             </thead>
-            <tbody class="table-group-divider" *ngIf="this.features!=undefined && this.features.data.length>0">
+            <tbody class="table-group-divider" *ngIf="this.features!=undefined && this.features.data.length>0; else elseBlock">
                 <tr *ngFor="let feature of this.features?.data" (click)="this.showCreateCommentModal(feature.id)">
                     <th scope="row" class="align-middle">{{feature.id}}</th>
                     <td class="align-middle">{{feature.attributes.external_id}}</td>
@@ -63,9 +63,11 @@
                 </tr>
             </tbody>
         </table>
-        <div #elseBlock class="h-100 d-flex align-items-center justify-content-center">
-            <p class="fs-1 text-secondary"><i class="bi bi-search"></i> Data not found. Try again</p>
-        </div>
+        <ng-template #elseBlock>
+            <div class="h-100 d-flex align-items-center justify-content-center">
+                <p class="fs-1 text-secondary"><i class="bi bi-search"></i> Data not found. Try again</p>
+            </div>
+        </ng-template>
     </div>
     <div class="border-top row">
         <div class="col-8">
